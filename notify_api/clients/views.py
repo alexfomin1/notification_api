@@ -16,15 +16,9 @@ class ClientsAPIView(APIView):
     def post(self, request):
         serializer = ClientSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
+        serializer.save()
 
-        post_new = Client.objects.create(
-            client_id=request.data['client_id'],
-            client_phone=request.data['client_phone'],
-            client_op=request.data['client_op'],
-            client_tag=request.data['client_tag'],
-            client_zone=request.data['client_zone']
-        )
-        return Response({'post': ClientSerializer(post_new).data})
+        return Response({'post': serializer.data})
 
 #class ClientsAPIView(generics.ListAPIView):
 #    queryset = Client.objects.all()

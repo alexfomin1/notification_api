@@ -22,6 +22,9 @@ class ClientSerializer(serializers.Serializer):
     client_tag = serializers.CharField(max_length=255)
     client_zone = serializers.CharField(max_length=50)
 
+    def create(self, validated_data):
+        return Client.objects.create(**validated_data)
+
 '''
 def encode():
     model = ClientModel('2424293', 79184738776, 918, 'cl', '2')
