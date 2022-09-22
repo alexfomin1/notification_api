@@ -8,6 +8,11 @@ from .models import Client
 from .serializers import ClientSerializer
 
 
+class ClientsAPIList(generics.ListCreateAPIView):
+    queryset = Client.objects.all()
+    serializer_class = ClientSerializer
+
+
 class ClientsAPIView(APIView):
     def get(self, request):
         lst = Client.objects.all().values()
@@ -41,7 +46,3 @@ class ClientsAPIView(APIView):
             return Response({"error": "Method DELETE not allowed"})
 
         return Response({"post": "delete post " + str(pk)})
-
-#class ClientsAPIView(generics.ListAPIView):
-#    queryset = Client.objects.all()
-#    serializer_class = ClientSerializer
