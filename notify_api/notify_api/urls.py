@@ -15,17 +15,20 @@ Including another URLconf
 """
 from django.urls import path, include
 
+from mymessages.views import *
 from clients.views import *
 from django.contrib import admin
 
 from rest_framework import routers
 
-router = routers.SimpleRouter()
+
+
+router = routers.DefaultRouter()
 router.register(r'clients', ClientsViewSet)
+router.register(r'messages', MessagesViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/auth/', include('rest_framework.urls')),
     path('api/v1/', include(router.urls)),
-
 ]
