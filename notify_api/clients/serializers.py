@@ -25,6 +25,15 @@ class ClientSerializer(serializers.Serializer):
     def create(self, validated_data):
         return Client.objects.create(**validated_data)
 
+    def update(self, instance, validated_data):
+        instance.client_id = validated_data.get("client_id", instance.client_id)
+        instance.client_phone = validated_data.get("client_phone", instance.client_phone)
+        instance.client_op = validated_data.get("client_op", instance.client_op)
+        instance.client_tag = validated_data.get("client_tag", instance.client_tag)
+        instance.client_zone = validated_data.get("client_zone", instance.client_zone)
+        instance.save()
+        return instance
+
 '''
 def encode():
     model = ClientModel('2424293', 79184738776, 918, 'cl', '2')

@@ -20,6 +20,21 @@ class ClientsAPIView(APIView):
 
         return Response({'post': serializer.data})
 
+    def put(self, request, *args, **kwargs):
+        pk = kwargs.get("pk", None)
+        if not pk:
+            return Response({"error": "Method PUT not allowed"})
+
+        try:
+            instance = Client.objects.get(pk=pk)
+        except:
+            return Response({"error": "Object does not exist"})
+
+        serializer = ClientSerializer(data=request.data, instance=instance)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({"post": serializer.data})
+
 #class ClientsAPIView(generics.ListAPIView):
 #    queryset = Client.objects.all()
 #    serializer_class = ClientSerializer

@@ -20,5 +20,6 @@ from clients.views import ClientsAPIView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/clientslist/', ClientsAPIView.as_view())
+    path('api/v1/clientslist/', ClientsAPIView.as_view()),
+    path('api/v1/clientslist/<int:pk>/', ClientsAPIView.as_view())
 ]
