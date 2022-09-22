@@ -4,7 +4,7 @@ from django.db import models
 class Client(models.Model):
     client_id = models.CharField(max_length=255, unique=True)
     client_phone = models.IntegerField()
-    client_op = models.IntegerField()
+    client_op = models.CharField(max_length=30)
     client_tag = models.CharField(max_length=255)
     client_zone = models.CharField(max_length=50)
 

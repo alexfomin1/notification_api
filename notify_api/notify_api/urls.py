@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.urls import path, include
 
+from distribs.views import DistribsViewSet
 from mymessages.views import *
 from clients.views import *
 from django.contrib import admin
@@ -24,8 +25,10 @@ from rest_framework import routers
 
 
 router = routers.DefaultRouter()
+
 router.register(r'clients', ClientsViewSet)
 router.register(r'messages', MessagesViewSet)
+router.register(r'distribs', DistribsViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
