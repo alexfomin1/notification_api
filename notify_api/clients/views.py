@@ -35,6 +35,13 @@ class ClientsAPIView(APIView):
         serializer.save()
         return Response({"post": serializer.data})
 
+    def delete(self, request, *args, **kwargs):
+        pk = kwargs.get("pk", None)
+        if not pk:
+            return Response({"error": "Method DELETE not allowed"})
+
+        return Response({"post": "delete post " + str(pk)})
+
 #class ClientsAPIView(generics.ListAPIView):
 #    queryset = Client.objects.all()
 #    serializer_class = ClientSerializer

@@ -7,32 +7,10 @@ from rest_framework.renderers import JSONRenderer
 from .models import Client
 
 
-#class ClientModel:
- #   def __init__(self, client_id, client_phone, client_op, client_tag, client_zone):
- #       self.client_id = client_id
- #       self.client_phone = client_phone
- #       self.client_op = client_op
- #       self.client_tag = client_tag
- #       self.client_zone = client_zone
-
-class ClientSerializer(serializers.Serializer):
-    client_id = serializers.CharField(max_length=255)
-    client_phone = serializers.IntegerField()
-    client_op = serializers.IntegerField()
-    client_tag = serializers.CharField(max_length=255)
-    client_zone = serializers.CharField(max_length=50)
-
-    def create(self, validated_data):
-        return Client.objects.create(**validated_data)
-
-    def update(self, instance, validated_data):
-        instance.client_id = validated_data.get("client_id", instance.client_id)
-        instance.client_phone = validated_data.get("client_phone", instance.client_phone)
-        instance.client_op = validated_data.get("client_op", instance.client_op)
-        instance.client_tag = validated_data.get("client_tag", instance.client_tag)
-        instance.client_zone = validated_data.get("client_zone", instance.client_zone)
-        instance.save()
-        return instance
+class ClientSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Client
+        fields = "__all__"
 
 '''
 def encode():
@@ -48,9 +26,13 @@ def decode():
     serializer = ClientSerializer(data=data)
     serializer.is_valid()
     print(serializer.validated_data)
+    
+class ClientModel:
+    def __init__(self, client_id, client_phone, client_op, client_tag, client_zone):
+       self.client_id = client_id
+       self.client_phone = client_phone
+       self.client_op = client_op
+       self.client_tag = client_tag
+       self.client_zone = client_zone
 
-class ClientSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Client
-        fields = ('client_id', 'client_phone', 'client_op', 'client_tag', 'client_zone')
     '''
