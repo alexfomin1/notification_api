@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Distrib(models.Model):
-    distrib_id = models.CharField(max_length=255, unique=True)
+    distrib_id = models.IntegerField()
     distrib_begin_time = models.DateTimeField()
     distrib_end_time = models.DateTimeField()
     ditrib_text = models.CharField(max_length=255)
@@ -11,4 +11,4 @@ class Distrib(models.Model):
 
 
     def __str__(self):
-        return self.distrib_id
+        return self.distrib_tag

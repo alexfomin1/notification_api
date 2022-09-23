@@ -48,7 +48,9 @@ INSTALLED_APPS = [
     'clients.apps.ClientsConfig',
     'mymessages.apps.MessagesConfig',
     'distribs.apps.DistribsConfig',
+
     'rest_framework',
+    'django_celery_beat',
 ]
 
 MIDDLEWARE = [
