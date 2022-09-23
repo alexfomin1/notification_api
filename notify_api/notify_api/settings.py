@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'clients.apps.ClientsConfig',
     'mymessages.apps.MessagesConfig',
     'distribs.apps.DistribsConfig',
+    'scheduler.apps.SchedulerConfig',
 
     'rest_framework',
     'django_celery_beat',
