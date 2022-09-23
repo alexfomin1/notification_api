@@ -12,6 +12,7 @@ dotenv_file = os.path.join(BASE_DIR, ".env")
 if os.path.isfile(dotenv_file):
     dotenv.load_dotenv(dotenv_file)
 
+
 @shared_task(bind=True, autoretry_for=(Exception,), retry_backoff=True, retry_kwargs={'max_retries': 5})
 def send_request(self, id, phone, text):
     try:
@@ -26,8 +27,3 @@ def send_request(self, id, phone, text):
         raise Exception()
     finally:
         return 'task finished'
-
-@shared_task
-def check():
-    a = 2 ** 2
-    return a

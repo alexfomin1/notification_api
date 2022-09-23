@@ -8,9 +8,8 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 app.autodiscover_tasks()
 app.conf.beat_schedule = {
     'every-10-seconds': {
-        'task': 'scheduler.tasks.check',
-        'schedule': 10.0,
-#        'args': 2
+        'task': 'scheduler.s_check.check',
+        'schedule': 10.0
     }
 }
 @app.task(bind=True)
