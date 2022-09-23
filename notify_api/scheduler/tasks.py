@@ -1,3 +1,4 @@
+import json
 from celery import shared_task
 import requests
 from pathlib import Path
@@ -11,17 +12,22 @@ dotenv_file = os.path.join(BASE_DIR, ".env")
 if os.path.isfile(dotenv_file):
     dotenv.load_dotenv(dotenv_file)
 
-@shared_task
-def send_request(id, phone, text):
+@shared_task(bind=True, autoretry_for=(Exception,), retry_backoff=True, retry_kwargs={'max_retries': 5})
+def send_request(self, id, phone, text):
     try:
         data = {
             'id': id,
             'phone': phone,
             'text': text
         }
-        response = requests.get(f'https://probe.fbrq.cloud/v1/send/{str(id)}', data=data, auth=BearerAuth(os.environ['TOKEN_SERVER']))
-        print(response)
+        response = requests.get(f'https://probe.fbrq.cloud/v1/send/{str(id)}', data=json.dumps(data), auth=BearerAuth(os.environ['TOKEN_SERVER']))
+        return response
     except:
-        print('task failed')
+        raise Exception()
     finally:
-        print('task finished')
+        return 'task finished'
+
+@shared_task
+def check():
+    a = 2 ** 2
+    return a
