@@ -1,13 +1,14 @@
 import os
 from celery import Celery
 
+# $ celery -A notify_api beat -l INFO
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'notify_api.settings')
 app = Celery('notify_api', broker='redis://localhost:6379')
 app.config_from_object('django.conf:settings', namespace='CELERY')
 app.autodiscover_tasks()
 app.conf.beat_schedule = {
-    'every-10-seconds': {
+    'db_checker': {
         'task': 'scheduler.s_check.check',
         'schedule': 10.0
     }
