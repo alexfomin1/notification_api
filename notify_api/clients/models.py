@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Client(models.Model):
-    client_id = models.IntegerField()
+    id = models.AutoField(primary_key=True)
     client_phone = models.IntegerField()
     client_op = models.IntegerField()
     client_tag = models.CharField(max_length=255)

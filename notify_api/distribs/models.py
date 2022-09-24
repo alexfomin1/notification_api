@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Distrib(models.Model):
-    distrib_id = models.IntegerField()
+    id = models.AutoField(primary_key=True)
     distrib_begin_time = models.DateTimeField()
     distrib_end_time = models.DateTimeField()
     ditrib_text = models.CharField(max_length=255)
