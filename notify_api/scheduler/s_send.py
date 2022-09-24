@@ -5,6 +5,7 @@ from pathlib import Path
 import os
 import dotenv
 
+from mymessages.models import Message
 from .auth_bearer import BearerAuth
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -14,16 +15,23 @@ if os.path.isfile(dotenv_file):
 
 
 @shared_task(bind=True, autoretry_for=(Exception,), retry_backoff=True, retry_kwargs={'max_retries': 5})
-def send_request(self, id, phone, text):
+def send_request(self, id):
     try:
+        message = Message.objects.get(id=id)
         data = {
-            'id': id,
-            'phone': phone,
-            'text': text
+            'id': message.id,
+            'phone': message.cl_phone,
+            'text': message.text
         }
+        message.status = 'SENDING'
+        message.save()
         response = requests.get(f'https://probe.fbrq.cloud/v1/send/{str(id)}', data=json.dumps(data), auth=BearerAuth(os.environ['TOKEN_SERVER']))
         return response
     except:
+        message = Message.objects.get(id=id)
+        message.status = 'ERROR'
         raise Exception()
     finally:
+        message = Message.objects.get(id=id)
+        message.status = 'SENT'
         return 'task finished'

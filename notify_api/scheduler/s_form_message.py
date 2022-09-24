@@ -13,6 +13,6 @@ def find_clients(tag, operator):
 def form_message(id, text, tag, operator):
     clients = find_clients.delay(tag, operator)
     for client in clients:
-        new_message = Message(status='CREATED', text=text, id=id)
+        new_message = Message(status='CREATED', text=text, cl_id=client.id, distrib_id=id)
         new_message.save()
-        send_request.delay(client.id, client.phone, text, new_message.id)
+        send_request.delay(new_message.id)
