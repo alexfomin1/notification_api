@@ -13,10 +13,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import os
 import dotenv
-from celery.schedules import crontab
 
-
-from scheduler.tasks import *
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -154,13 +151,6 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ]
 }
-'''
-CELERY_BEAT_SCHEDULER = {
-    "notify_api": {
-        "task": "scheduler.tasks.check",
-        "schedule": 10.0,
-    },
-}
-'''
+
 CELERY_BROKER_URL = "redis://localhost:6379"
 CELERY_RESULT_BACKEND = "redis://localhost:6379"

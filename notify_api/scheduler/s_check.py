@@ -6,8 +6,9 @@ from s_form_message import form_message
 @shared_task
 def check():
     now = datetime.now()
-    q = Distrib.objects.filter(distrib_begin_time__gte=now, distrib_end_time__lte=now)
-    if q:
+
+    if Distrib.objects.filter(distrib_begin_time__gte=now, distrib_end_time__lte=now):
+        q = Distrib.objects.filter(distrib_begin_time__gte=now, distrib_end_time__lte=now)
         for distrib in q:
-            form_message.delay(distrib)
+            form_message.delay(id=distrib.id, text=distrib.text, tag=distrib.tag, operator=distrib.operator)
 

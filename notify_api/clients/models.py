@@ -3,10 +3,10 @@ from django.db import models
 
 class Client(models.Model):
     id = models.AutoField(primary_key=True)
-    client_phone = models.IntegerField()
-    client_op = models.IntegerField()
-    client_tag = models.CharField(max_length=255)
-    client_zone = models.CharField(max_length=50)
+    phone = models.IntegerField()
+    operator = models.IntegerField()
+    tag = models.CharField(max_length=255)
+    zone = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.client_tag
+        return self.tag
