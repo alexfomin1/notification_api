@@ -1,7 +1,8 @@
 from django.db import models
+from django_prometheus.models import ExportModelOperationsMixin
 
 
-class Client(models.Model):
+class Client(ExportModelOperationsMixin('client'), models.Model):
     id = models.AutoField(primary_key=True)
     phone = models.IntegerField()
     operator = models.IntegerField()
