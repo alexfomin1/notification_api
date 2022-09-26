@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_celery_beat',
     'rest_framework_simplejwt',
+    'drf_yasg',
 
     'django_prometheus'
 ]
