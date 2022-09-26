@@ -20,7 +20,7 @@ from distribs.views import DistribsViewSet
 from mymessages.views import *
 from clients.views import *
 from django.contrib import admin
-from yasg import urlpatterns as doc_urls
+from .yasg import urlpatterns as doc_urls
 
 from rest_framework import routers
 
