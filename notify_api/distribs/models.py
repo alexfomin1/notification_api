@@ -2,6 +2,7 @@ from django.db import models
 from django_prometheus.models import ExportModelOperationsMixin
 
 from clients.models import Client
+from tags.models import Tag
 
 
 class Distrib(ExportModelOperationsMixin('distrib'), models.Model):
@@ -10,6 +11,7 @@ class Distrib(ExportModelOperationsMixin('distrib'), models.Model):
     end_time = models.DateTimeField()
     text = models.CharField(max_length=255)
     cl = models.ForeignKey(Client, on_delete=models.DO_NOTHING)
+    tag = models.ForeignKey(Tag, on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return self.text

@@ -23,13 +23,14 @@ from django.contrib import admin
 
 from rest_framework import routers
 
-
+from tags.views import TagsViewSet
 
 router = routers.DefaultRouter()
 
 router.register(r'clients', ClientsViewSet)
 router.register(r'messages', MessagesViewSet)
 router.register(r'distribs', DistribsViewSet)
+router.register(r'tags', TagsViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
