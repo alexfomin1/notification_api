@@ -6,13 +6,14 @@ from clients.models import Client
 from s_send import send_request
 from mymessages.models import Message
 
-
+#search for suitable clients
 @shared_task
 def find_clients(tag, operator):
     logger = logging.getLogger('main')
     logger.info('finding suitable clients')
-    return Client.objects.filter(tag=tag, operator=operator)
+    return Client.objects.filter(tag_id=tag, operator=operator)
 
+#forming message with suitable info from Distrib & Client models
 @shared_task
 def form_message(id, text, tag, operator):
     logger = logging.getLogger('main')

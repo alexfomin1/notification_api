@@ -26,8 +26,9 @@ from rest_framework import routers
 
 from tags.views import TagsViewSet
 
-router = routers.DefaultRouter()
 
+#connecting url routes to router
+router = routers.DefaultRouter()
 router.register(r'clients', ClientsViewSet)
 router.register(r'messages', MessagesViewSet)
 router.register(r'distribs', DistribsViewSet)
@@ -37,11 +38,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     #path('api/v1/auth/', include('rest_framework.urls')),
     path('api/v1/', include(router.urls)),
+
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 
     path('', include('django_prometheus.urls'))
 ]
-
+#urls for documenting from yasg.py
 urlpatterns += doc_urls

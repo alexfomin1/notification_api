@@ -10,15 +10,18 @@ import dotenv
 from mymessages.models import Message
 from .auth_bearer import BearerAuth
 
-BASE_DIR = Path(__file__).resolve().parent.parent
-dotenv_file = os.path.join(BASE_DIR, ".env")
-if os.path.isfile(dotenv_file):
-    dotenv.load_dotenv(dotenv_file)
 
 
+#sending message in JSON format on API
+#we use backoff for Exceptions
 @shared_task(bind=True, autoretry_for=(Exception,), retry_backoff=True, retry_kwargs={'max_retries': 5})
 def send_request(self, id):
     try:
+        BASE_DIR = Path(__file__).resolve().parent.parent
+        dotenv_file = os.path.join(BASE_DIR, ".env")
+        if os.path.isfile(dotenv_file):
+            dotenv.load_dotenv(dotenv_file)
+
         logger = logging.getLogger('main')
         message = Message.objects.get(id=id)
         data = {

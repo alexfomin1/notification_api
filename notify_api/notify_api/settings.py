@@ -51,11 +51,11 @@ INSTALLED_APPS = [
     'tags.apps.TagsConfig',
 
     'rest_framework',
-    'django_celery_beat',
-    'rest_framework_simplejwt',
-    'drf_yasg',
+    'django_celery_beat', #app for scheduling tasks
+    'rest_framework_simplejwt', #app for jwt authorization
+    'drf_yasg', #app for DRF documentation
 
-    'django_prometheus'
+    'django_prometheus' #!!!MUST be at the END, app for control
 ]
 
 
@@ -93,8 +93,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'notify_api.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -162,7 +160,7 @@ REST_FRAMEWORK = {
     ],
 
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication', #added JWT authorization
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ]
