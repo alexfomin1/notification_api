@@ -3,6 +3,10 @@ Notification API via Django REST API
 
 ## Setting up
 1. Download this project
+2. Download and run docker
+3. Run `docker-compose up -d --build`
+4. Research the app with urls below
+5. Use `docker compose stop` to stop the system
 
 
 ## Guide in API urls
@@ -16,6 +20,7 @@ Notification API via Django REST API
 - `/api/token/refresh/` - refresh access token with refresh token
 - `/api/token/verify/` - authenticate with access token
 - `/docs/` - Swagger UI documentation (Open API) format
+- `http://127.0.0.1:9090` - Prometheus metrics
 
 ## Algorithm's logic:
 1. Function `check()` in `scheduler/s_check/` scheduled to check new suitable ditributions every 10 seconds

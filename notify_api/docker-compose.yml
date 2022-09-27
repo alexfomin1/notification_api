@@ -1,0 +1,40 @@
+version: "3.8"
+
+services:
+  redis:
+    image: redis:alpine
+  django:
+    build: .
+    container_name: django
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/usr/src/app/
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=1
+      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1
+      - CELERY_BROKER=redis://localhost:6379
+      - CELERY_BACKEND=redis://localhost:6379
+    depends_on:
+      - redis
+  celery_worker:
+    build: .
+    command: celery -A notify_api worker -l INFO
+    volumes:
+      - .:/usr/src/app/
+    depends_on:
+      - redis
+  celery_beat:
+    build: .
+    command: celery -A notify_api beat -l INFO
+    volumes:
+      - .:/usr/src/app/
+    depends_on:
+      - redis
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./prometheus/:/etc/prometheus/
+    ports:
+      - "9090:9090"

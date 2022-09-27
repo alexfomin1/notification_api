@@ -5,3 +5,5 @@ venv/
 
 venv.bak/
 .idea
+.db
+.sqlite3
